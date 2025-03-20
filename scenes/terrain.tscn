@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=3 uid="uid://brh4abpd5xfca"]
+
+[ext_resource type="Texture2D" uid="uid://befpwys6s5xxj" path="res://assets/grass/grass.jpg" id="2_oqplg"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oqplg"]
+size = Vector2(250, 250)
+
+[sub_resource type="GDScript" id="GDScript_b0j75"]
+script/source = "extends MeshInstance3D
+class_name Terrain
+
+@export var width: int = 20
+@export var depth: int = 20
+@export var height_scale: float = 5.0  # Controls elevation
+@export var texture: Texture  # Assign in the editor
+
+var terrain_heights: Dictionary = {}  # Store height values for each grid point
+
+func _ready():
+	generate_terrain()
+	generate_collision()
+
+func generate_terrain():
+	var st = SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	
+	var rng = RandomNumberGenerator.new()
+	
+	# Loop over grid positions to create vertices with random height
+	for z in range(depth):
+		for x in range(width):
+			var y = rng.randf_range(0, height_scale)
+			var pos = Vector3(x, y, z)
+			st.add_vertex(pos)
+			terrain_heights[Vector2(x, z)] = y  # Save height for later use
+			
+	st.index()
+	var generated_mesh = st.commit()
+	mesh = generated_mesh  # Set our MeshInstance3D's mesh
+	
+	if texture:
+		var mat = StandardMaterial3D.new()
+		mat.albedo_texture = texture
+		mesh.surface_set_material(0, mat)
+
+func generate_collision():
+	# Create a StaticBody3D as a child for physics collisions
+	var static_body = StaticBody3D.new()
+	static_body.name = \"TerrainCollision\"
+	add_child(static_body)
+	
+	# Create a CollisionShape3D as child of StaticBody3D
+	var collision_shape = CollisionShape3D.new()
+	static_body.add_child(collision_shape)
+	
+	# Create a ConcavePolygonShape3D from the generated mesh vertices
+	if mesh and mesh.get_surface_count() > 0:
+		var arrays = mesh.surface_get_arrays(0)
+		var vertices = arrays[Mesh.ARRAY_VERTEX]
+		
+		# Create collision shape resource and assign the vertex data
+		var concave_shape = ConcavePolygonShape3D.new()
+		concave_shape.data = vertices
+		collision_shape.shape = concave_shape
+	else:
+		push_error(\"Mesh not generated properly; cannot create collision shape.\")
+
+# Function to get the terrain height at a given (x, z) coordinate
+func get_terrain_height(x: float, z: float) -> float:
+	return terrain_heights.get(Vector2(x, z), 0)
+"
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_oqplg"]
+
+[node name="Terrain" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_oqplg")
+script = SubResource("GDScript_b0j75")
+texture = ExtResource("2_oqplg")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_oqplg")
