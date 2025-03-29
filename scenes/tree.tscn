@@ -1,18 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://bqx5f4tgr6sej"]
 
-[ext_resource type="PackedScene" uid="uid://sqr7l3yho00t" path="res://assets/tree/tree_elm.glb" id="2_vplca"]
+[ext_resource type="PackedScene" uid="uid://d1pt3c664opwf" path="res://assets/tree/pine_tree_-_ps1_low_poly.glb" id="1_avsvi"]
 
 [sub_resource type="GDScript" id="GDScript_avsvi"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_vplca"]
-height = 7.88696
-radius = 0.343262
+height = 7.68127
+radius = 0.582031
 
 [node name="Tree" type="CharacterBody3D"]
 script = SubResource("GDScript_avsvi")
 
-[node name="Mesh" parent="." instance=ExtResource("2_vplca")]
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.94348, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.04632, 0)
 shape = SubResource("CylinderShape3D_vplca")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_avsvi")]

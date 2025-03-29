@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cld2ev2ia8bxp"]
+
+[ext_resource type="Script" uid="uid://rknchs0di0pw" path="res://scenes/main.gd" id="1_0wfyh"]
+
+[sub_resource type="Environment" id="Environment_o5qli"]
+background_mode = 1
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_0wfyh")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o5qli")

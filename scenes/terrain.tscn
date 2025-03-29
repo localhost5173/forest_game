@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://brh4abpd5xfca"]
 
-[ext_resource type="Texture2D" uid="uid://befpwys6s5xxj" path="res://assets/grass/grass.jpg" id="2_oqplg"]
+[ext_resource type="Texture2D" path="res://assets/grass/grass.jpg" id="2_oqplg"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_oqplg"]
 size = Vector2(250, 250)
