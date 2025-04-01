@@ -21,6 +21,9 @@ extends CharacterBody3D
 
 @onready var camera = $Camera3D
 @onready var flashlight = $Camera3D/SpotLight3D
+@onready var raycast = $Camera3D/RunestoneRayCast
+@onready var tooltip_label = $TooltipLabel 	
+@onready var coordinates_label = $Coordinates  # Adjust the path as necessary
 
 var current_speed := land_speed
 var is_flying := false
@@ -32,8 +35,38 @@ var underwater_overlay: ColorRect
 var is_underwater: bool = false
 var water_level := -6.0  # Should match your water plane height
 
+var runestone_inventory = {}
+
+var required_runestones = ["magma", "colossal", "water"]
+var boss_spawned = false
+
+func has_all_runestones() -> bool:
+	return runestone_inventory.has_all(required_runestones)
+
+func collect_runestone(runestone_type: String):
+	runestone_inventory[runestone_type] = true
+	print("Runestone inventory", runestone_inventory)
+	if runestone_type == "magma":
+		$MagmaRunestoneInfo.text = "Magma Runestone: ✅"
+	elif  runestone_type == "water":
+		$WaterRunestoneInfo.text = "Water Runestone: ✅"
+	else:
+		$ColossalRunestoneInfo.text = "Colossal Runestone: ✅"
+	# Update your HUD here. For example:
+	#$HUD/RunestoneIconContainer.update_icons(runestone_inventory)
+	print("Collected ", runestone_type, " runestone!")
+
+func set_tooltip(text: String):
+	$TooltipLabel.text = text
+	$TooltipLabel.visible = text != ""
+
+func clear_tooltip():
+	$TooltipLabel.text = ""
+	$TooltipLabel.visible = false
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	add_to_group("player")
 	setup_underwater_overlay()
 	setup_ambient_timer()
 	current_speed = land_speed
@@ -131,6 +164,40 @@ func _input(event):
 	
 	if event.is_action_pressed("fly"):
 		is_flying = !is_flying
+		
+		# When E is pressed, try to collect the runestone
+	if event.is_action_pressed("ui_accept"):  # Ensure "ui_accept" is bound to the desired key
+		if raycast.is_colliding():
+			var collider = raycast.get_collider()
+			if collider.has_method("get_runestone_type"):
+				var runestone_type = collider.get_runestone_type()
+				collect_runestone(runestone_type)
+				collider.queue_free()  # Remove the runestone from the scene
+				clear_tooltip()
+			if collider.has_method("spawn_boss") and has_all_runestones():
+				collider.spawn_boss(transform.origin)
+				boss_spawned = true
+				set_tooltip("")
+		
+func _process(delta):
+	var player_position = transform.origin
+	coordinates_label.text = "Coordinates: X=%.2f, Y=%.2f, Z=%.2f" % [player_position.x, player_position.y, player_position.z]
+	if raycast.is_colliding():
+		var collider = raycast.get_collider()
+		if collider and collider.has_method("get_runestone_type"):
+			var runestone_type = collider.get_runestone_type()
+			set_tooltip("Press [E] to collect the " + runestone_type + " runestone")
+		elif collider and collider.has_method("spawn_boss"):
+			if has_all_runestones() and boss_spawned == false:
+				set_tooltip("Press [E] to use runestones")
+			elif boss_spawned == false:
+				set_tooltip("Collect all runestones before coming back!")
+		elif collider and collider.has_method("move_towards_player"):
+			collider.move_towards_player(global_transform.origin, delta)
+		else:
+			clear_tooltip()
+	else:
+		clear_tooltip()
 
 func _physics_process(delta):
 	var new_underwater = camera.global_position.y < water_level

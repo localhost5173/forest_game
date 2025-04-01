@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://c4vayr0anen0l"
+path.s3tc="res://.godot/imported/magma_runestone_2.png-91e1f8a27ad76befd55610a436223178.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "4cf1781aa8bd09acb50f3bfab0c5cbcd"
+}
+
+[deps]
+
+source_file="res://assets/runestones/magma_runestone_2.png"
+dest_files=["res://.godot/imported/magma_runestone_2.png-91e1f8a27ad76befd55610a436223178.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

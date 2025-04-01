@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvnx7ncarxafb"]
+
+[ext_resource type="Script" uid="uid://dls20sw4a8xn5" path="res://scenes/blue_runestone.gd" id="1_eeseo"]
+[ext_resource type="PackedScene" uid="uid://o6oc36kbnhtm" path="res://assets/runestones/stylized_white_runestone.glb" id="1_ywuqr"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ykh5e"]
+height = 2.33411
+radius = 1.13232
+
+[node name="Blue_runestone" type="CharacterBody3D"]
+script = ExtResource("1_eeseo")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_ywuqr")]
+transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00228286, 0.0890446, 0.130384)
+shape = SubResource("CylinderShape3D_ykh5e")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.00164059, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00164059, 0, 0, 0)
+light_color = Color(0.15956, 0, 0.909584, 1)
+light_energy = 10.065
+spot_range = 11.558
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.166508, 0, 0.968254, 1)
+light_energy = 14.875

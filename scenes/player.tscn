@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dif2hqfm28fmo"]
+[gd_scene load_steps=4 format=3 uid="uid://dif2hqfm28fmo"]
 
 [ext_resource type="Script" uid="uid://cduqde4xgju57" path="res://player.gd" id="1_3vyb7"]
 
@@ -6,7 +6,11 @@
 radius = 0.4
 height = 1.8
 
+[sub_resource type="LabelSettings" id="LabelSettings_3vyb7"]
+font_size = 32
+
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 0
 script = ExtResource("1_3vyb7")
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -14,5 +18,41 @@ script = ExtResource("1_3vyb7")
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
 spot_range = 25.0
 
+[node name="RunestoneRayCast" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -1)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_g2els")
+
+[node name="TooltipLabel" type="Label" parent="."]
+offset_right = 1152.0
+offset_bottom = 647.0
+text = "tooltip"
+label_settings = SubResource("LabelSettings_3vyb7")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MagmaRunestoneInfo" type="Label" parent="."]
+offset_left = 9.0
+offset_right = 278.0
+offset_bottom = 23.0
+text = "Magma Runestone: ❌"
+
+[node name="ColossalRunestoneInfo" type="Label" parent="."]
+offset_left = 7.0
+offset_top = 20.0
+offset_right = 271.0
+offset_bottom = 46.0
+text = "Colossal Runestone: ❌"
+
+[node name="WaterRunestoneInfo" type="Label" parent="."]
+offset_left = 9.0
+offset_top = 41.0
+offset_right = 283.0
+offset_bottom = 65.0
+text = "Water Runestone: ❌"
+
+[node name="Coordinates" type="Label" parent="."]
+offset_left = 460.0
+offset_right = 1152.0
+offset_bottom = 47.0

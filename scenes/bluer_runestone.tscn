@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvnx7ncarxafb"]
+
+[ext_resource type="PackedScene" uid="uid://bl5chefhqu110" path="res://assets/runestones/runestone_warcraft_2.glb" id="1_n7b6n"]
+[ext_resource type="Script" uid="uid://xv757f0hsu4y" path="res://scenes/bluer_runestone.gd" id="1_ykh5e"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_eeseo"]
+height = 9.83363
+radius = 2.0835
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ykh5e"]
+height = 3.54128
+radius = 1.84619
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_c760f"]
+height = 3.68066
+radius = 1.35352
+
+[node name="Bluer_runestone" type="CharacterBody3D"]
+script = ExtResource("1_ykh5e")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_n7b6n")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.171394, 3.97466, -0.485198)
+shape = SubResource("CylinderShape3D_eeseo")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.93939, 0.820781, 2.22722)
+shape = SubResource("CylinderShape3D_ykh5e")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01917, -0.027503, -3.53445)
+shape = SubResource("CylinderShape3D_c760f")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.997279, 0, -0.0737257, 0, 1, 0, 0.0737257, 0, -0.997279, 0, 3.78197, 0)
+light_color = Color(0.680321, 1, 0.935435, 1)
+light_energy = 19.075
+spot_angle = 57.8638
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.565184, 0.949047, 1, 1)
+light_energy = 17.195

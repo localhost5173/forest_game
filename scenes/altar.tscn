@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjp755fyuief7"]
+
+[ext_resource type="PackedScene" uid="uid://bgiab4lj6gbr4" path="res://assets/runestones/runestone.glb" id="1_hwdfh"]
+[ext_resource type="Script" uid="uid://dk2gy0k64gk20" path="res://scenes/altar.gd" id="1_si8oa"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_si8oa"]
+height = 1.12738
+radius = 5.30371
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dwhmf"]
+height = 3.79968
+radius = 0.26709
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7ynsc"]
+height = 7.23364
+radius = 1.28809
+
+[node name="Altar" type="CharacterBody3D"]
+script = ExtResource("1_si8oa")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_hwdfh")]
+
+[node name="FloorCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.451874, 0)
+shape = SubResource("CylinderShape3D_si8oa")
+
+[node name="Pillar1" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64574, 2.52389, 4.50677)
+shape = SubResource("CylinderShape3D_dwhmf")
+
+[node name="Pillar2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.17828, 2.52389, -0.0446662)
+shape = SubResource("CylinderShape3D_dwhmf")
+
+[node name="Pillar3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64816, 2.52389, -4.46302)
+shape = SubResource("CylinderShape3D_dwhmf")
+
+[node name="Pillar4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5013, 2.52389, -4.46302)
+shape = SubResource("CylinderShape3D_dwhmf")
+
+[node name="Pillar5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20438, 2.52389, 0.0131886)
+shape = SubResource("CylinderShape3D_dwhmf")
+
+[node name="Pillar6" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.52945, 2.52389, 4.40227)
+shape = SubResource("CylinderShape3D_dwhmf")
+
+[node name="MiddleRune" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.61682, 0)
+shape = SubResource("CylinderShape3D_7ynsc")

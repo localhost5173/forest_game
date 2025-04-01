@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6g3b7wis4mta"]
+
+[ext_resource type="Script" uid="uid://dtd8rsrb4xsil" path="res://scenes/magma_runestone.gd" id="1_nkxxn"]
+[ext_resource type="PackedScene" uid="uid://cce1y3m4r3d5r" path="res://assets/runestones/magma_runestone.glb" id="1_r3xym"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nkxxn"]
+height = 4.41357
+radius = 1.08643
+
+[node name="Node3D" type="CharacterBody3D"]
+script = ExtResource("1_nkxxn")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_r3xym")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.224659, 0)
+shape = SubResource("CylinderShape3D_nkxxn")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0163959)
+light_color = Color(0.721786, 0.238751, 2.88785e-07, 1)
+light_energy = 16.0
+spot_range = 6.002
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.607806, 0.166068, 1.92523e-07, 1)
+light_energy = 16.0
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
