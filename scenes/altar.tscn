@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjp755fyuief7"]
+[gd_scene load_steps=8 format=3 uid="uid://bjp755fyuief7"]
 
 [ext_resource type="PackedScene" uid="uid://bgiab4lj6gbr4" path="res://assets/runestones/runestone.glb" id="1_hwdfh"]
 [ext_resource type="Script" uid="uid://dk2gy0k64gk20" path="res://scenes/altar.gd" id="1_si8oa"]
@@ -14,6 +14,13 @@ radius = 0.26709
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7ynsc"]
 height = 7.23364
 radius = 1.28809
+
+[sub_resource type="LabelSettings" id="LabelSettings_si8oa"]
+font_size = 36
+font_color = Color(0.756891, 0, 0.00454662, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_si8oa"]
+size = Vector3(5.99805, 15.8005, 1)
 
 [node name="Altar" type="CharacterBody3D"]
 script = ExtResource("1_si8oa")
@@ -51,3 +58,34 @@ shape = SubResource("CylinderShape3D_dwhmf")
 [node name="MiddleRune" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.61682, 0)
 shape = SubResource("CylinderShape3D_7ynsc")
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_left = 372.0
+offset_top = 66.0
+offset_right = 902.0
+offset_bottom = 134.0
+label_settings = SubResource("LabelSettings_si8oa")
+
+[node name="Wall1" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.158203, 2.53537, 5.24733)
+shape = SubResource("BoxShape3D_si8oa")
+
+[node name="Wall2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.512582, 0, 0.858638, 0, 1, 0, -0.858638, 0, 0.512582, 4.59246, 2.53537, 2.72875)
+shape = SubResource("BoxShape3D_si8oa")
+
+[node name="Wall3" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.50516, 0, 0.863026, 0, 1, 0, -0.863026, 0, -0.50516, 4.71953, 7.40025, -2.73726)
+shape = SubResource("BoxShape3D_si8oa")
+
+[node name="Wall4" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.999962, 0, 0.00876153, 0, 1, 0, -0.00876153, 0, -0.999962, -0.526622, 2.53537, -5.36233)
+shape = SubResource("BoxShape3D_si8oa")
+
+[node name="Wall5" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.56737, 0, -0.823463, 0, 1, 0, 0.823463, 0, -0.56737, -4.61902, 2.53537, -2.57849)
+shape = SubResource("BoxShape3D_si8oa")
+
+[node name="Wall6" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.491709, 0, -0.870759, 0, 1, 0, 0.870759, 0, 0.491709, -4.04264, 2.53537, 2.24307)
+shape = SubResource("BoxShape3D_si8oa")

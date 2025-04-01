@@ -18,11 +18,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00228286, 0.0890446, 0.1303
 shape = SubResource("CylinderShape3D_ykh5e")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(-0.00164059, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00164059, 0, 0, 0)
+transform = Transform3D(-0.00164059, 0, 0.999999, 0, 1, 0, -0.999999, 0, -0.00164059, 0, 1.37609, 0)
 light_color = Color(0.15956, 0, 0.909584, 1)
 light_energy = 10.065
 spot_range = 11.558
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33686, 0)
 light_color = Color(0.166508, 0, 0.968254, 1)
 light_energy = 14.875

@@ -32,13 +32,3 @@ shape = SubResource("CylinderShape3D_ykh5e")
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01917, -0.027503, -3.53445)
 shape = SubResource("CylinderShape3D_c760f")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(-0.997279, 0, -0.0737257, 0, 1, 0, 0.0737257, 0, -0.997279, 0, 3.78197, 0)
-light_color = Color(0.680321, 1, 0.935435, 1)
-light_energy = 19.075
-spot_angle = 57.8638
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-light_color = Color(0.565184, 0.949047, 1, 1)
-light_energy = 17.195

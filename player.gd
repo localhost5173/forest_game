@@ -22,8 +22,12 @@ extends CharacterBody3D
 @onready var camera = $Camera3D
 @onready var flashlight = $Camera3D/SpotLight3D
 @onready var raycast = $Camera3D/RunestoneRayCast
+@onready var boss_raycast = $Camera3D/BossRayCast
 @onready var tooltip_label = $TooltipLabel 	
 @onready var coordinates_label = $Coordinates  # Adjust the path as necessary
+
+@onready var runestone_pickup = preload("res://sounds/runestone_pickup.mp3")
+@onready var ambient_music = preload("res://sounds/ambient.mp3")
 
 var current_speed := land_speed
 var is_flying := false
@@ -35,15 +39,21 @@ var underwater_overlay: ColorRect
 var is_underwater: bool = false
 var water_level := -6.0  # Should match your water plane height
 
-var runestone_inventory = {}
+var runestone_inventory = { "colossal": true, "magma": true, "water": true }
+#var runestone_inventory = {}
 
 var required_runestones = ["magma", "colossal", "water"]
 var boss_spawned = false
+
+var saw_boss = false
+
+var ambient_sound_player : AudioStreamPlayer
 
 func has_all_runestones() -> bool:
 	return runestone_inventory.has_all(required_runestones)
 
 func collect_runestone(runestone_type: String):
+	play_ambient_sound(runestone_pickup, 5)
 	runestone_inventory[runestone_type] = true
 	print("Runestone inventory", runestone_inventory)
 	if runestone_type == "magma":
@@ -64,12 +74,21 @@ func clear_tooltip():
 	$TooltipLabel.text = ""
 	$TooltipLabel.visible = false
 
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	add_to_group("player")
 	setup_underwater_overlay()
 	setup_ambient_timer()
 	current_speed = land_speed
+	
+	ambient_sound_player = AudioStreamPlayer.new()
+	add_child(ambient_sound_player)
+	ambient_sound_player.stream = load("res://sounds/ambient.mp3")
+	ambient_sound_player.volume_db = -10.0
+	ambient_sound_player.bus = "Ambient"  # Make sure you have an 'Ambient' bus in Audio settings
+	ambient_sound_player.stream.loop = true
+	ambient_sound_player.play()
 
 func setup_ambient_timer():
 	ambient_timer = Timer.new()
@@ -175,7 +194,8 @@ func _input(event):
 				collider.queue_free()  # Remove the runestone from the scene
 				clear_tooltip()
 			if collider.has_method("spawn_boss") and has_all_runestones():
-				collider.spawn_boss(transform.origin)
+				ambient_sound_player.stop()
+				collider.spawn_boss(self)
 				boss_spawned = true
 				set_tooltip("")
 		
@@ -193,11 +213,20 @@ func _process(delta):
 			elif boss_spawned == false:
 				set_tooltip("Collect all runestones before coming back!")
 		elif collider and collider.has_method("move_towards_player"):
-			collider.move_towards_player(global_transform.origin, delta)
+			collider.move_towards_player(global_transform.origin)
 		else:
 			clear_tooltip()
 	else:
 		clear_tooltip()
+		
+	boss_raycast.collision_mask = 1 << 2  # Raycast detects layer 3
+	if boss_raycast.is_colliding() and !saw_boss:
+		print("Boss raycast hit:", boss_raycast.get_collider())
+		var collider = boss_raycast.get_collider()
+		if collider and collider.has_method("move_towards_player"):
+			collider.move_towards_player(global_transform.origin)
+			saw_boss = true
+
 
 func _physics_process(delta):
 	var new_underwater = camera.global_position.y < water_level

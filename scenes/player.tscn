@@ -21,6 +21,9 @@ spot_range = 25.0
 [node name="RunestoneRayCast" type="RayCast3D" parent="Camera3D"]
 target_position = Vector3(0, 0, -1)
 
+[node name="BossRayCast" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -1)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_g2els")
 
