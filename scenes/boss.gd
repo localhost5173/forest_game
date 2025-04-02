@@ -65,3 +65,6 @@ func _physics_process(delta):
 		if global_transform.origin.distance_to(target_position) < 0.1:
 			moving = false
 			velocity = Vector3.ZERO
+			await get_tree().create_timer(3.0).timeout
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			get_tree().change_scene_to_file("res://scenes/end.tscn")

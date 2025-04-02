@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dif2hqfm28fmo"]
+[gd_scene load_steps=7 format=3 uid="uid://dif2hqfm28fmo"]
 
 [ext_resource type="Script" uid="uid://cduqde4xgju57" path="res://player.gd" id="1_3vyb7"]
 
@@ -8,6 +8,18 @@ height = 1.8
 
 [sub_resource type="LabelSettings" id="LabelSettings_3vyb7"]
 font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_g2els"]
+font_size = 24
+font_color = Color(0.924983, 0.315899, 7.70092e-07, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qhqgy"]
+font_size = 24
+font_color = Color(0.493, 0.999999, 0.618908, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dqkch"]
+font_size = 24
+font_color = Color(0.43733, 0.557137, 1, 1)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 0
@@ -30,6 +42,8 @@ shape = SubResource("CapsuleShape3D_g2els")
 [node name="TooltipLabel" type="Label" parent="."]
 offset_right = 1152.0
 offset_bottom = 647.0
+size_flags_horizontal = 6
+size_flags_vertical = 10
 text = "tooltip"
 label_settings = SubResource("LabelSettings_3vyb7")
 horizontal_alignment = 1
@@ -39,23 +53,30 @@ vertical_alignment = 2
 offset_left = 9.0
 offset_right = 278.0
 offset_bottom = 23.0
+size_flags_horizontal = 0
 text = "Magma Runestone: ❌"
+label_settings = SubResource("LabelSettings_g2els")
 
 [node name="ColossalRunestoneInfo" type="Label" parent="."]
-offset_left = 7.0
-offset_top = 20.0
-offset_right = 271.0
-offset_bottom = 46.0
+offset_left = 10.0
+offset_top = 38.0
+offset_right = 281.0
+offset_bottom = 72.0
+size_flags_horizontal = 0
 text = "Colossal Runestone: ❌"
+label_settings = SubResource("LabelSettings_qhqgy")
 
 [node name="WaterRunestoneInfo" type="Label" parent="."]
-offset_left = 9.0
-offset_top = 41.0
-offset_right = 283.0
-offset_bottom = 65.0
+offset_left = 11.0
+offset_top = 82.0
+offset_right = 285.0
+offset_bottom = 116.0
+size_flags_horizontal = 0
 text = "Water Runestone: ❌"
+label_settings = SubResource("LabelSettings_dqkch")
 
 [node name="Coordinates" type="Label" parent="."]
 offset_left = 460.0
 offset_right = 1152.0
 offset_bottom = 47.0
+size_flags_horizontal = 4

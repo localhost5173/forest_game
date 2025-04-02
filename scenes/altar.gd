@@ -5,6 +5,15 @@ extends CharacterBody3D
 @onready var god_is_here = preload("res://sounds/god_is_here.mp3")
 @onready var timer_label = $TimerLabel  # Assuming a Label node to show the timer
 
+func disable_movement_inputs():
+	# Remove the input bindings for movement actions
+	InputMap.erase_action("move_forward")
+	InputMap.erase_action("move_back")
+	InputMap.erase_action("move_left")
+	InputMap.erase_action("move_right")
+	
+	print("Movement keys disabled")
+
 var timer_started = false
 var countdown_time = 45.0  # Starting countdown from 45 seconds
 var sound_player: AudioStreamPlayer  # Audio stream player for "God is Coming"
@@ -30,16 +39,20 @@ func toggle_walls():
 	$Wall6.disabled = !$Wall6.disabled
 	
 func toggle_pillars():
-	$Pillar1.disabled = !$Pillar1.disabled
-	$Pillar2.disabled = !$Pillar2.disabled
-	$Pillar3.disabled = !$Pillar3.disabled
-	$Pillar4.disabled = !$Pillar4.disabled
-	$Pillar5.disabled = !$Pillar5.disabled
-	$Pillar6.disabled = !$Pillar6.disabled
-	$MiddleRune.disabled = !$MiddleRune.disabled
+	$RigidBody3D/Pillar1.disabled = true
+	$RigidBody3D/Pillar2.disabled = true
+	$RigidBody3D/Pillar3.disabled = true
+	$RigidBody3D/Pillar4.disabled = true
+	$RigidBody3D/Pillar5.disabled = true
+	$RigidBody3D/Pillar6.disabled = true
+	$MiddleRune.disabled = true
+
+func disable_raycast_for_pillars():
+	$RigidBody3D.add_to_group("altar_hitbox")
 	
 func _ready():
 	toggle_walls()
+	disable_raycast_for_pillars()
 
 func spawn_boss(player: CharacterBody3D):
 	# Play "God is Coming" sound
@@ -55,6 +68,8 @@ func spawn_boss(player: CharacterBody3D):
 	$TimerLabel.text = "GOD IS HERE"
 	
 	# After countdown finishes, play "God is Here" and spawn the boss
+	disable_movement_inputs()
+	toggle_walls()
 	play_ambient_sound(god_is_here)
 	spawn_boss_instance(player)
 

@@ -75,6 +75,7 @@ func clear_tooltip():
 	$TooltipLabel.visible = false
 
 
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	add_to_group("player")
@@ -83,6 +84,7 @@ func _ready():
 	current_speed = land_speed
 	
 	ambient_sound_player = AudioStreamPlayer.new()
+	
 	add_child(ambient_sound_player)
 	ambient_sound_player.stream = load("res://sounds/ambient.mp3")
 	ambient_sound_player.volume_db = -10.0
@@ -202,6 +204,12 @@ func _input(event):
 func _process(delta):
 	var player_position = transform.origin
 	coordinates_label.text = "Coordinates: X=%.2f, Y=%.2f, Z=%.2f" % [player_position.x, player_position.y, player_position.z]
+	
+	var altars = get_tree().get_nodes_in_group("altar_hitbox")
+	for altar in altars:
+		var parent = altar.get_parent()  # Get the parent node
+		if parent is StaticBody3D or parent is RigidBody3D or parent is Area3D:
+			raycast.add_exception(parent)  # Add the parent as an exception
 	if raycast.is_colliding():
 		var collider = raycast.get_collider()
 		if collider and collider.has_method("get_runestone_type"):
